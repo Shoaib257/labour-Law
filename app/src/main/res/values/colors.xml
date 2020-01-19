@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="chapterColor">#F0D5DC</color>
+    <color name="chapterViewBackgroud">#1A5269E2</color>
+    <color name="chapterIDBackgroud">#5269E2</color>
+
+</resources>
