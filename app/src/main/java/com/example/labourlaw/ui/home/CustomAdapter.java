@@ -20,12 +20,16 @@ import com.example.labourlaw.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 class CustomAdapter extends BaseAdapter {
     private final Activity context;
-    private final String[] laws;
-    String[] no;
+   /* private final String[] laws;
+    String[] no;*/
+   private ArrayList<String> laws=new ArrayList<String>();
+   private ArrayList<String> no=new ArrayList<String>();
 
-    public CustomAdapter(Activity context, String[] laws, String[] no) {
+    public CustomAdapter(Activity context, ArrayList<String> laws, ArrayList<String> no) {
         this.context = context;
         this.laws = laws;
         this.no = no;
@@ -33,7 +37,7 @@ class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return no.length;
+        return no.size();
     }
 
     @Override
@@ -49,12 +53,13 @@ class CustomAdapter extends BaseAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         LayoutInflater inflater=context.getLayoutInflater();
         View view=inflater.inflate(R.layout.customlist_for_chapters,null,true);
         TextView no=(TextView)view.findViewById(R.id.chapterId);
         TextView chapterName=(TextView)view.findViewById(R.id.chapterName);
-        no.setText(this.no[position]);
-        chapterName.setText(this.laws[position]);
+        no.setText(this.no.get(position));
+        chapterName.setText(this.laws.get(position));
         return view;
     }
 }

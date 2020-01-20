@@ -18,12 +18,14 @@ import android.app.Activity;
 
         import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 class CustomSectionAdapter extends BaseAdapter {
     private final Activity context;
-    private final String[] laws;
-    String[] no;
+    private ArrayList<String> laws=new ArrayList<String>();
+    private ArrayList<String> no=new ArrayList<String>();
 
-    public CustomSectionAdapter(Activity context, String[] laws, String[] no) {
+    public CustomSectionAdapter(Activity context, ArrayList<String> laws, ArrayList<String> no) {
         this.context = context;
         this.laws = laws;
         this.no = no;
@@ -31,7 +33,7 @@ class CustomSectionAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return no.length;
+        return no.size();
     }
 
     @Override
@@ -51,8 +53,8 @@ class CustomSectionAdapter extends BaseAdapter {
         View view=inflater.inflate(R.layout.customlist_for_sections,null,true);
         TextView no=(TextView)view.findViewById(R.id.sectionId);
         TextView chapterName=(TextView)view.findViewById(R.id.sectionName);
-        no.setText(this.no[position]);
-        chapterName.setText(this.laws[position]);
+        no.setText(this.no.get(position));
+        chapterName.setText(this.laws.get(position));
         return view;
     }
 }

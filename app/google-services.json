@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "780682997211",
+    "firebase_url": "https://labour-law-hridoy.firebaseio.com",
+    "project_id": "labour-law-hridoy",
+    "storage_bucket": "labour-law-hridoy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780682997211:android:0e0b7195f74e21003d0bfe",
+        "android_client_info": {
+          "package_name": "com.example.labourlaw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780682997211-8a8neurf12iblqnsrlh47qcvvph5luoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.labourlaw",
+            "certificate_hash": "ddc37a79ef79d4e29fe9a1e95e027a4a1b14f7a7"
+          }
+        },
+        {
+          "client_id": "780682997211-4r4umovm80lkrv5tvktop3g712278kao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMWXST9wN004aKxAjYfkb3CsH8W5S4gjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780682997211-4r4umovm80lkrv5tvktop3g712278kao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
