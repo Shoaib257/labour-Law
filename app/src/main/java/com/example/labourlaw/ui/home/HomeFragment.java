@@ -31,8 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    DatabaseReference db= FirebaseDatabase.getInstance().getReference();
-    DatabaseReference ref=db.child("Labour Law");
+    DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Labour Law");
+    //DatabaseReference ref=db.child("Labour Law");
 
     CustomAdapter customAdapter;
     String[] bnNumbers={"০","১","২","৩","৪","৫","৬","৭","৮","৯","১০","১১","১২","১৩","১৪","১৫","১৬","১৭","১৮","১৯","২০","২১","২২","২৩","২৪","২৫","২৬","২৭","২৮","২৯","৩০",};

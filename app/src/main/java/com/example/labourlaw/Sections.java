@@ -42,6 +42,7 @@ public class Sections extends AppCompatActivity {
         setContentView(R.layout.activity_sections);
         getSupportActionBar().hide();
         Toolbar toolbar=findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         TextView toolbarText=findViewById(R.id.sectionName);
         toolbarText.setText(chapterName);
 
