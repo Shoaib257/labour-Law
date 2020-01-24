@@ -5,11 +5,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/left_top_bottom_curved"
     android:id="@+id/topLayout"
-    android:layout_marginLeft="8dp"
-    >
 
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:background="@drawable/left_top_bottom_curved">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -68,4 +71,5 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 </LinearLayout>

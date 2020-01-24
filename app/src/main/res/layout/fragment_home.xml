@@ -4,13 +4,14 @@
     android:id="@+id/homeFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/chapterListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#ffffff"
+        android:divider="@color/appBackground"
         android:dividerHeight="1dp"></ListView>
 
 </LinearLayout>
