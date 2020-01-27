@@ -86,6 +86,9 @@ public class Sections extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(getApplicationContext(),Laws.class);
+                TextView t=view.findViewById(R.id.sectionName);
+                intent.putExtra("sectionName", t.getText());
+                intent.putExtra("dbRefPos", position);
                 startActivity(intent);
             }
         });

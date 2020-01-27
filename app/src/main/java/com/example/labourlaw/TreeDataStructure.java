@@ -1,15 +1,12 @@
 package com.example.labourlaw;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.TransitionRes;
-
-import com.google.firebase.database.core.utilities.Tree;
 
 import java.util.ArrayList;
 
 
-public class TreeDataStructureForLaw {
-    class Node{
+public class TreeDataStructure {
+    public class Node{
         //userdata holder
         private final Object data;
         private Node(Object object, int nodeId, int parent){
@@ -18,18 +15,25 @@ public class TreeDataStructureForLaw {
             this.parent = parent;
         }
         //easy to use methods
-        Node addChild(Object object){
-            return TreeDataStructureForLaw.this.addChild(object,this);
+        public Node addChild(Object object){
+            return TreeDataStructure.this.addChild(object,this);
         }
-        Node update(Object object){
-            return TreeDataStructureForLaw.this.updateNode(object,this);
+        public Node update(Object object){
+            return TreeDataStructure.this.updateNode(object,this);
         }
-        ArrayList<Node> getChildren(){
-            return TreeDataStructureForLaw.this.getChildren(this);
+        public ArrayList<Node> getChildren(){
+            return TreeDataStructure.this.getChildren(this);
         }
 
-        ArrayList<Node> addListOfChild(ArrayList<Object> list){
-            return TreeDataStructureForLaw.this.addListOfChild(list,this);
+        public ArrayList<Node> addListOfChild(ArrayList<Object> list){
+            return TreeDataStructure.this.addListOfChild(list,this);
+        }
+        public Object getData(){
+         return this.data;
+        }
+        public int getChildrenCount(){
+            return TreeDataStructure.this.getChildrenCount(this);
+
         }
 
         //internal calculation variables
@@ -38,8 +42,8 @@ public class TreeDataStructureForLaw {
         private final int parent;
     }
 
-    ArrayList<Node> NODES=new ArrayList<Node>();
-    int idAvailableFrom=0;
+    private ArrayList<Node> NODES=new ArrayList<Node>();
+    private int idAvailableFrom=0;
 
     private int generateNewNodeID(){
     idAvailableFrom+=1;
@@ -57,7 +61,7 @@ public class TreeDataStructureForLaw {
     }
 
 
-    public int findNodeIndexInArrayList(Node targetNode){
+    private int findNodeIndexInArrayList(Node targetNode){
 
         for(int i=0;i<NODES.size();i++){
             if(targetNode.nodeId==NODES.get(i).nodeId){
@@ -126,7 +130,7 @@ public class TreeDataStructureForLaw {
 
     public boolean hasChild(@CantBeNull Node node){
         //if the list is empty that means hasChild true. Else false
-        return getChildren(node).size()!=0;
+        return getChildrenCount(node)!=0;
     }
 
     public ArrayList<Node> getChildren(@MustHaveChildren @CantBeNull Node node){
@@ -142,7 +146,10 @@ public class TreeDataStructureForLaw {
         return childrens;
     }
 
-    public int getChildrenCountOf( @CantBeNull Node node){
+    public int getChildrenCount( @CantBeNull Node node){
+        if(node==null){
+            return 0;
+        }
         int childrenCount=0;
         int nodeId=node.nodeId;
         for(Node node1:NODES){
@@ -152,6 +159,10 @@ public class TreeDataStructureForLaw {
         }
 
         return childrenCount;
+    }
+    public int getTotalNodesofParent(){
+
+        return NODES.size()-1;
     }
 
 /*    public int getDepthOf(@CantBeNull Object node){
@@ -184,7 +195,7 @@ public class TreeDataStructureForLaw {
      * returns the root node of the tree. If the tree does not have any node then null is returned.
      * @return
      */
-    private Node getRootNode(){
+    public Node getRootNode(){
 
         for(int i=0;i<NODES.size();i++){
             if(NODES.get(i).parent==0){
@@ -196,15 +207,15 @@ public class TreeDataStructureForLaw {
     return null;
     }
 
-    public static void main (String[] args ) {
-        TreeDataStructureForLaw tree=new TreeDataStructureForLaw();
-        tree.addRootNode("Root: 0").addChild("Child1: ROOT").addChild("Child2:Child1").update("Child2:child1");
-        System.out.println(tree.getRootNode().getChildren().get(0).getChildren().get(0).data.toString());
+/*    public static void main(String[] args) {
+        TreeDataStructure treeDataStructure=new TreeDataStructure();
+        treeDataStructure.addRootNode("Root").addChild("child");
+        treeDataStructure.getRootNode().getChildren();
+        treeDataStructure.getRootNode();
+        treeDataStructure.getRootNode();
 
-    }
-
-
-
+    }*/
 
 
 }
+
