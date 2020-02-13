@@ -35,12 +35,11 @@ public class HomeFragment extends Fragment {
     //DatabaseReference ref=db.child("Labour Law");
 
     CustomAdapter customAdapter;
-    String[] bnNumbers={"০","১","২","৩","৪","৫","৬","৭","৮","৯","১০","১১","১২","১৩","১৪","১৫","১৬","১৭","১৮","১৯","২০","২১","২২","২৩","২৪","২৫","২৬","২৭","২৮","২৯","৩০",};
+    //String[] bnNumbers={"০","১","২","৩","৪","৫","৬","৭","৮","৯","১০","১১","১২","১৩","১৪","১৫","১৬","১৭","১৮","১৯","২০","২১","২২","২৩","২৪","২৫","২৬","২৭","২৮","২৯","৩০","৩১","৩২","৩৩"};
     //String[] no={"১","২","৩"};
     //String[] laws={"অধ্যায় ১","অধ্যায় ২","অধ্যায় ৩"};
     ArrayList<String> no=new ArrayList<String>();
     ArrayList<String> chapters=new ArrayList<String>();
-
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         final ListView listView= view.findViewById(R.id.chapterListView);
@@ -68,7 +67,8 @@ public class HomeFragment extends Fragment {
                     DatabaseReferencesStorage.sectionsRefs.add(snapshot.child("Sections").getRef());
 
                     chapters.add(snapshot.child("Name").getValue().toString());
-                    no.add(bnNumbers[no.size()+1]);
+                    no.add(snapshot.getKey().replace("অধ্যায় ",""));
+                    //no.add(bnNumbers[no.size()+1]);
                     customAdapter.notifyDataSetChanged();
                 }
 

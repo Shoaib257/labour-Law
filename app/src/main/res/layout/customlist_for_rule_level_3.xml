@@ -35,7 +35,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="16dp"
                     android:gravity="center_vertical|right"
-                    android:text="999."
+                    android:text="১১১."
                     android:textColor="#000000"
                     android:textSize="14sp"></TextView>
             </LinearLayout>
@@ -46,7 +46,7 @@
                 android:textColor="#000000"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="আমাদের আমাদের আমাদেরআমাদেরআ আমাদেরআমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের দেখে হবে সেই ছেলে কবে কথায় না বড় হয়ে কাজে বড় হবে।"
+                android:text="আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের আমাদের দেখে হবে সেই ছেলে কবে কথায় না বড় হয়ে কাজে বড় হবে।"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                 app:layout_constraintStart_toEndOf="@+id/layout"
@@ -61,13 +61,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/moreOption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginTop="6dp"
-                    android:src="@drawable/ic_menuicon"></ImageView>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/moreButtonUX"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp">
+                    <ImageView
+
+                        android:id="@+id/moreOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="13dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/ic_menuicon"></ImageView>
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

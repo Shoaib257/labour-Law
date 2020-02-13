@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "780682997211-lpkfqfqp40r4ekcdqu6pomqtg15ih055.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.labourlaw",
+            "certificate_hash": "bd9ffd0894614a03db4a0f30ae8117f4e4c9eb04"
+          }
+        },
+        {
           "client_id": "780682997211-8a8neurf12iblqnsrlh47qcvvph5luoj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

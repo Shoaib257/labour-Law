@@ -1,7 +1,6 @@
 package com.example.labourlaw;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.TransitionRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -9,10 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.example.labourlaw.ui.CustomLawAdapter;
 import com.example.labourlaw.ui.NodeModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,16 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Laws extends AppCompatActivity {
-    ArrayList<String> law =new ArrayList<String>();
-    ArrayList<String> number =new ArrayList<String>();
-    CustomLawAdapterForTree adapter;
+    CustomLawAdapter adapter;
     ListView listView;
     TreeDataStructure tree=new TreeDataStructure();
-    ArrayList<View> views=new ArrayList<>();
+    ArrayList<View> views=new ArrayList<>();  //may data removed from here
+    ArrayList<View> rawViews=new ArrayList<>();  //stores all view of that section
     DatabaseReference ref;
     Bundle bundle;
     String sectionName;
-    int dbRefPos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         bundle=getIntent().getExtras();
@@ -45,19 +42,19 @@ public class Laws extends AppCompatActivity {
         toolbarText.setText(sectionName);
 
         listView=findViewById(R.id.lawsListView);
-        adapter=new CustomLawAdapterForTree(Laws.this, views);
+        adapter=new CustomLawAdapter(Laws.this, views);
         listView.setAdapter(adapter);
-        //adapter=new CustomLawAdapter(this, tree);
-
+        //adding listner of dataChange in firebase
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //(tree)only contain clicked section laws and its childs and childs of childs.
+                //created tree will be converted into List of view using the method
+                //constructArralistOfViewFromTree(Laws.this,views,tree) which takes context,reference of viewHolder(Arraylist<View> and constructed tree as param)
                 tree.clearAll();
-                //DatabaseReferencesStorage.ruleRefs.clear();
                 LawDataSample data=new LawDataSample("0","Section","Root node of this tree",true);
                 TreeDataStructure.Node rootNode=tree.addRootNode(data);  //root node added
-                Log.w("Data found","onDataChanged called");
+
                 //add childs of the root node
                for(DataSnapshot level1:dataSnapshot.getChildren()){
 
@@ -65,6 +62,7 @@ public class Laws extends AppCompatActivity {
                    String id=level1.getKey();
 
                    String ruleName=level1.child("Name").getValue().toString();
+                   Log.w(ruleName,id);
                    String note="I got a note";
                    boolean fav=false;
                    LawDataSample child=new LawDataSample(id,ruleName,note,fav);  //node created
@@ -96,9 +94,8 @@ public class Laws extends AppCompatActivity {
 
                }
                constructArralistOfViewFromTree(Laws.this,views,tree);
-
-               //int childrenCount=tree.getRootNode().getChildrenCount();
-
+                rawViews.clear();
+                rawViews=views;
                adapter.notifyDataSetChanged();
 
             }
@@ -115,6 +112,34 @@ public class Laws extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+
+
+    //tree to view converter. this method is specific to this project
+
+    /**
+     * How this method works.
+     * Input: tree with three level nodes.
+     * First level: RootNode(Section)  i.e. only one root node
+     * Second Level:SubNodes(SubLaws)  i.e. it may contain anynumber of node
+     * Third Level: SubSubNodes(subsubLaws)  i.e. multiple node
+     *
+     * We have three trackers: ruleQueue,subRuleQueue,subsubRuleQueue
+     * Step 1:
+     * ruleQueue: its gets loaded with children of RootNode when the method gets called. Its first procedure of this converting process
+     * then we start processing the first element of the ruleQueue to generate a view and store in list. After generating we check if it has any childrenn.
+     * if it doesnt have any children, it will remove the first element from ruleQueue and will start from Step 1:
+     * else it will load all children in the subRuleQueue. then generate a view and store it. If it has no child then
+     *
+     * Step 2:
+     * remove the first element of the
+     * subRuleQueue and start processing next. else it will load the children of subRuleQueue in the subsubRuleQueue and start processing the first element
+     * to generate new view and store it.
+     * Because we have no only three level, so we will remove the first element of subsubRuleQueue and start processing next and so on.
+     * If subsubRuleQueue is empty then step 2. And follow the same procedure.
+     * @param context
+     * @param addViewTo
+     * @param tree
+     */
     private void constructArralistOfViewFromTree(Activity context,ArrayList<View> addViewTo, TreeDataStructure tree) {
         LayoutInflater inflater=context.getLayoutInflater();
         int totalNode=tree.getTotalNodesofParent();
@@ -135,8 +160,8 @@ public class Laws extends AppCompatActivity {
         }
         //add rules with their correnponding sub and subsub rule with the arraylist as view
         for(int i=0;i<totalNode;i++){
-            if(ruleQueue.getFirst().tag==NodeModel.PROCESSING){
-                if(subRuleQueue.getFirst().tag==NodeModel.PROCESSING){
+            if(ruleQueue.getFirst().tag==NodeModel.PROCESSING){ //its processing because it has subRule
+                if(subRuleQueue.getFirst().tag==NodeModel.PROCESSING){  //its processing because it has subsubrule
                     View view=inflater.inflate(R.layout.customlist_for_rule_level_3,null,true);
                     LawDataSample level3=(LawDataSample)subsubRuleQueue.getFirst().node.getData();
                     TextView txt=view.findViewById(R.id.lawId);
@@ -145,13 +170,12 @@ public class Laws extends AppCompatActivity {
                     data.setText(level3.getLawData());
                     subsubRuleQueue.getFirstAndPop();
 
-                    if(subsubRuleQueue.isEmpty()){
-                        subRuleQueue.getFirstAndPop();
-                        if(subRuleQueue.isEmpty()){
+                    //maintaining flow of tree to view chosing mechanism.
+                    if(subsubRuleQueue.isEmpty()){  //subsubRuleQueue will be empty if there is no more to add as view.
+                        subRuleQueue.getFirstAndPop(); //if subsubRuleQueue is empty that means processing element of subRuleQueue must be removed
+                        if(subRuleQueue.isEmpty()){   //after removing subRule, it subRuleQueue is also empty that means processing element of ruleQueue must also be removed
                             ruleQueue.getFirstAndPop();
                         }
-                        //ruleQueue.getFirstAndPop();
-
                     }
 
                     //problem occured here. problem occuring while trying to change rule on ruleQueue
@@ -195,7 +219,6 @@ public class Laws extends AppCompatActivity {
             if ruleQueue has child then set is as processing otherwise
             remove the rule from the queue after returning the queue row
 */
-
                 //develop row with rule data.
                 View view=inflater.inflate(R.layout.customlist_for_rule_level_1,null,true);
                 LawDataSample level1=(LawDataSample)ruleQueue.getFirst().node.getData();
@@ -227,8 +250,5 @@ public class Laws extends AppCompatActivity {
 
             }
         }
-
     }
-
-    //manually developed tree will be returned from this method
 }

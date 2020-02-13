@@ -56,13 +56,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/moreOption"
-                android:layout_width="wrap_content"
-                android:layout_height="13dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/ic_menuicon"></ImageView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/moreButtonUX"
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+                <ImageView
+
+                    android:id="@+id/moreOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/ic_menuicon"></ImageView>
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

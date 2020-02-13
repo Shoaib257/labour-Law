@@ -4,5 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/backButtonSection"
+            android:layout_width="25dp"
+            android:layout_height="31dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_left_arrow"></ImageView>
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/sectionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="এখানে টাইটেল আসবে"
+            android:textColor="#000000"
+            android:textSize="20sp"></TextView>
+    </LinearLayout>
+
 
 </androidx.appcompat.widget.Toolbar>
