@@ -47,6 +47,12 @@ public class CustomLawAdapter extends BaseAdapter {
         final View view=views.get(position);
         final LinearLayout   moreOption=view.findViewById(R.id.moreButtonUX);
         //final LinearLayout layout=view.findViewById(R.id.linearLayout);
+        setListner(moreOption);
+        return view;
+
+    }
+
+    void setListner(final LinearLayout moreOption){
         moreOption.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -67,8 +73,6 @@ public class CustomLawAdapter extends BaseAdapter {
 
             }
         });
-        return view;
-
     }
 
 }
